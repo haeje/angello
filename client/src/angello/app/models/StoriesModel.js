@@ -1,1 +1,2 @@
-angular.module('Angello.Common').service('StoriesModel', function(){})
+angular.module('Angello.Common')
+    .service('StoriesModel', function(){})
