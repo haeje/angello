@@ -3,7 +3,114 @@
         <ul class="list"
             ng-repeat="status in storyboard.statuses">
             <h3 class="status">{{status.name}}</h3>
-
+            <hr>
+            <li userstory ng-repeat="story in storyboard.stories | filter : {status : status.name}"
+                drag-container="{{story}}" 
+                mime-type="application/x-angello-status"
+                ng-click="storyboard.setCurrentStory(story)">
+            <!-- <li userstory ng-repeat="story in storyboard.stories | filter : {status : status.name}"
+                drag-container="story" 
+                mime-type="application/x-angello-status"
+                ng-click="storyboard.setCurrentStory(story)"> -->
+                <article>
+                    <div>
+                        <!-- <button type="button" class="close"
+                                ng-click="storyboard.deleteStory(story.id)">x</button> -->
+                        <button type="button" class="close"
+                                ng-click="userStory.deleteStory(story.id)">x</button>
+                        <p class="title">{{story.title}}</p>
+                    </div>
+                    <div class="type-bar {{story.type}}"></div>
+                    <div>
+                        <p>{{story.description}}</p>
+                    </div>
+                </article>
+            </li>
         </ul>
+    </div>
+</div>
+
+<div class="details">
+    <h3>Card Details</h3>
+    <form name="storyboard.detailsForm">
+        <div class="form-group">
+            <div class="controls">
+                <label for="inputTitle" class="control-label">*제목</label>
+                <input type="text" id="inputTitle" name="inputTitle" accept="" placeholder="제목"
+                    ng-model="storyboard.editedStory.title"
+                    ng-required="true" ng-minlength="3" ng-maxlength="30" class="form-controll">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="controls">
+                <label for="inputStatus" class="control-label">*상태</label>
+                <select name="inputStatus" id="inputStatus"
+                        ng-model="storyboard.editedStory.status"
+                        ng-required="true" ng-options="status.name as status.name for status in storyboard.statuses"
+                        class="form-controll">
+                        <option value="">선택해주세요...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="controls">
+                <label for="inputType" class="control-label">*종류</label>
+                <select name="inputType" id="inputType"
+                        ng-model="storyboard.editedStory.type"
+                        ng-required="true" ng-options="t.name as t.name for t in storyboard.types"
+                        ng-change="storyboard.otherOption(t.name)"
+                        class="form-controll">
+                        <option value="">선택해주세요...</option>
+                </select>
+                <div>{{storyboard.selected}}</div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="controls">
+                <label for="inputDescription" class="control-label">설명</label>
+                <textarea id="inputDescription" name="inputDescription" accept="" placeholder="설명"
+                    ng-model="storyboard.editedStory.description"
+                    ng-minlength="3" ng-maxlength="30" class="form-controll"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="controls">
+                <label for="inputCriteria" class="control-label">필수 구현 조건</label>
+                <textarea id="inputCriteria" name="inputCriteria" accept="" placeholder="필수 구현 조건"
+                    ng-model="storyboard.editedStory.criteria"
+                    ng-minlength="3" ng-maxlength="30" class="form-controll"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="controls">
+                <label for="inputReporter" class="control-label">*보고자</label>
+                <select name="inputReporter" id="inputReporter"
+                        ng-model="storyboard.editedStory.reporter"
+                        ng-required="true" ng-options="t.name as t.name for t in storyboard.types"
+                        class="form-controll">
+                        <option value="">선택해주세요...</option>
+                </select>
+                <div>{{storyboard.selected}}</div>
+            </div>
+        </div>
+
+    </form>
+    <hr>
+    <div ng-if="storyboard.currentStory">
+        <button class="btn btn-default" ng-click="storyboard.updateCancel()">취소</button>
+        <button class="btn pull-right btn-default"
+                ng-disabled="!storyboard.detailsForm.$valid"
+                ng-click="storyboard.updateStory()">확인</button>
+    </div>
+
+    <div ng-if="!storyboard.currentStory">
+        <button class="btn pull-right btn-default"
+                ng-disabled="!storyboard.detailsForm.$valid"
+                ng-click="storyboard.createStory()">새로 만들기</button>
     </div>
 </div>
