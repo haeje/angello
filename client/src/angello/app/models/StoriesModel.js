@@ -1,7 +1,7 @@
 angular.module('Angello.Common')
     .service('StoriesModel', function($http, EndpointConfigService, UtilsService){
         var service = this;
-        var MODEL = "/stories/";
+        var MODEL = "stories/";
 
         service.all = function(){
             return $http.get(EndpointConfigService.getUrl(
