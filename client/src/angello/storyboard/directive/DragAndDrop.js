@@ -28,7 +28,6 @@ angular.module('Angello.Storyboard')
             controllerAs: 'dragContainer',
             link: function ($scope, $element, $attrs, dragContainer) {
                 dragContainer.init($element);
-                console.log('dragContainer attrs, ', $attrs);
                 
                 $element.on('dragstart', dragContainer.handleDragStart.bind(dragContainer));
                 // $element.on('dragstart', dragContainer.handleDragStart);
@@ -65,8 +64,6 @@ angular.module('Angello.Storyboard')
         };
 
         dragContainer.handleDragEnd = function (e) {
-            console.log(angular.element(e.target));
-            
             if (e.originalEvent) e = e.originalEvent;
 
             angular.element(e.target).removeClass('drag-active');
@@ -80,7 +77,6 @@ angular.module('Angello.Storyboard')
         };
 
         dragContainer.updateDragData = function (data, tmp) {
-            console.log('dragContainer.updateDragData(data, tmp)', data, tmp);
 
             dragContainer.data = data;
 
@@ -88,7 +84,6 @@ angular.module('Angello.Storyboard')
         };
 
         dragContainer.updateDragType = function (type) {
-            // console.log('dragContainer.updateDragType', type);
 
             dragContainer.type = type || 'text/x-drag-and-drop';
 
