@@ -7,6 +7,9 @@ router.get('/', (req, res) => {
     Story.findAll()
     .then((stories) => {
       if (!stories.length) return res.status(404).send({ err: 'Todo not found!!' });
+      res.header("Access-Control-Allow-Origin", "*");
+      console.log(stories);
+      
       res.json(stories);
     })
     .catch(err => res.status(500).send(err));
