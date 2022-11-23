@@ -8,7 +8,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "karma": "^4.4.1",
+    "karma": "^6.4.1",
     "karma-chrome-launcher": "^3.1.0",
     "karma-jasmine": "^3.1.1"
   },
